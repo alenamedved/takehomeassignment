@@ -1,22 +1,26 @@
-import './App.css';
-import React from 'react';
+import "./App.css";
+import React, { useState } from "react";
 
 function App() {
-  const [textInput, setTextInput] = React.useState('Here is some example text.');
-  const [conversionMode, setConversionMode] = React.useState('lowercase');
-  const [textOutput, setTextOutput] = React.useState('');
+  const [textInput, setTextInput] = useState("");
+  const [conversionMode, setConversionMode] = useState("lowercase");
+  const [textOutput, setTextOutput] = useState("");
 
-  const handleRadioChange = event => {
+  const handleRadioChange = (event) => {
     setConversionMode(event.target.value);
-  }
+  };
 
-  const handleTextareaChange = event => {
+  const handleTextareaChange = (event) => {
     setTextInput(event.target.value);
   };
 
-  const handleSubmit = event => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
-    setTextOutput('Your formatted text will go here!')
+    if (conversionMode === "lowercase") {
+      setTextOutput(textInput.toLowerCase());
+    } else if (conversionMode === "uppercase") {
+      setTextOutput(textInput.toUpperCase());
+    }
   };
 
   return (
@@ -24,10 +28,16 @@ function App() {
       <header>
         <h1>Career Lab text-case converter</h1>
       </header>
-      <form onSubmit={handleSubmit}>
+      <form
+        aria-label="form for converted text"
+        method="submit"
+        onSubmit={handleFormSubmit}
+      >
         <div className="form-control form-control__text">
           <label htmlFor="text">Text to be converted:</label>
           <textarea
+            aria-label="textarea"
+            placeholder="Text to be converted"
             id="text"
             onChange={handleTextareaChange}
             value={textInput}
@@ -35,6 +45,7 @@ function App() {
         </div>
         <div className="form-control form-control__radio">
           <input
+            aria-label="lowercase conversion mode"
             type="radio"
             name="conversion"
             id="conversion-0"
@@ -46,6 +57,7 @@ function App() {
         </div>
         <div className="form-control form-control__radio">
           <input
+            aria-label="uppercase conversion mode"
             type="radio"
             name="conversion"
             id="conversion-1"
@@ -55,10 +67,18 @@ function App() {
           />
           <label htmlFor="conversion-1">Convert text to uppercase</label>
         </div>
-        <button type="button">Submit</button>
+        <button aria-label="submit button" type="submit">
+          Submit
+        </button>
         <div className="form-control form-control__text u-mt-3">
           <label htmlFor="result">Converted text:</label>
-          <output id="result" class="result">{textOutput}</output>
+          <output
+            aria-label="output for converted text"
+            id="result"
+            className="result"
+          >
+            {textOutput}
+          </output>
         </div>
       </form>
     </div>

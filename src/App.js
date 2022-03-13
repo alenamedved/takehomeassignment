@@ -21,8 +21,9 @@ function App() {
     } else if (conversionMode === "uppercase") {
       setTextOutput(textInput.toUpperCase());
     }
+    //or ternary operator
+    //conversionMode === "lowercase" ? setTextOutput(textInput.toLowerCase()) : setTextOutput(textInput.toUpperCase())
   };
-
   return (
     <div className="App">
       <header>
